@@ -25,7 +25,15 @@ class Detector:
         assert isinstance(frame, np.ndarray), f'Expected the frame to be of type numpy array got : {type(frame)}'
         
         # Run inference on image
-        outputs = self.model(frame)[0]
+
+        #outputs = self.model(frame)[0]
+        
+        # 新增三行
+        outputs = self.model(frame,
+                         conf=0.1,      # 置信度
+                         iou=0.5,      # NMS 阈值
+                         imgsz=1280,    # 输入分辨率
+                         verbose=False)[0]
         
         # Format the outputs to (classname, x_center, y_center, width, height)
         class_names = outputs.names
