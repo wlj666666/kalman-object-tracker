@@ -17,7 +17,7 @@ def load_class_names(filename):
 
 @click.command()
 @click.option('--mode', default='single', help='Tracking mode: "single" or "multi".')
-@click.option('--video-source', default="./videos/cars.mp4", help='Video source (default is "./videos/video_senators.mp4" ). Use 0 for webcam')
+@click.option('--video-source', default="./videos/demo1.mp4", help='Video source (default is "./videos/video_senators.mp4" ). Use 0 for webcam')
 @click.option('--show-classes', is_flag=True, help='Display all possible object classes and their IDs.')
 @click.option('--target-class', multiple=True, type=int, help='Class(es) to be tracked. Can specify multiple by repeating the flag.')
 @click.option('--estimate-acceleration', default=False, type=bool, help='Flag on whether to estimate acceleration of objects. Advisable to set to true for fast moving objects. (default False)')
@@ -79,4 +79,5 @@ def run_tracking(mode, video_source, show_classes, target_class, estimate_accele
 
 if __name__ == '__main__':
     run_tracking()
+
 

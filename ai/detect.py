@@ -26,14 +26,14 @@ class Detector:
         
         # Run inference on image
 
-        #outputs = self.model(frame)[0]
+        outputs = self.model(frame)[0]
         
         # 新增三行
-        outputs = self.model(frame,
-                         conf=0.1,      # 置信度
-                         iou=0.5,      # NMS 阈值
-                         imgsz=1280,    # 输入分辨率
-                         verbose=False)[0]
+        # outputs = self.model(frame,
+        #                  conf=0.1,      # 置信度
+        #                  iou=0.5,      # NMS 阈值
+        #                  imgsz=1280,    # 输入分辨率
+        #                  verbose=False)[0]
         
         # Format the outputs to (classname, x_center, y_center, width, height)
         class_names = outputs.names
@@ -42,4 +42,9 @@ class Detector:
         
         # assert len(detections[0]) == 5, f"Expected the predictions to have length 5. \
         #                                 Got: len({detections[0]}) == {len(detections[0])}"
+
+        detections = [d for d in detections
+              if d[3] > 0 and d[4] > 0          # 宽、高 > 0
+              and all(np.isfinite(d[1:5]))]     # 中心、宽高全是有限数
+        
         return detections
